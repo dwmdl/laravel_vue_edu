@@ -30,6 +30,23 @@ function isEdit(id) {
     return editPersonId.value === id
 }
 
+function deletePerson(person) {
+    axios.delete(`/api/people/${person.id}`)
+        .then(() => {
+            getPeople()
+            console.log('user was successfully deleted');
+        })
+}
+
+const indexLog = ref(() => {
+    console.log('This is a index component');
+})
+
+defineExpose({
+    indexLog,
+    getPeople,
+})
+
 onMounted(() => {
     getPeople()
 })
@@ -46,6 +63,7 @@ onMounted(() => {
                 <th scope="col">Age</th>
                 <th scope="col">Job</th>
                 <th scope="col">Edit</th>
+                <th scope="col" :class="editPersonId ? 'd-none' : '' ">Delete</th>
             </tr>
             </thead>
             <tbody>
@@ -55,14 +73,23 @@ onMounted(() => {
                     <td>{{ person.name }}</td>
                     <td>{{ person.age }}</td>
                     <td>{{ person.job }}</td>
-                    <td><button @click="changeEditPersonId(person.id)" class="btn btn-success">Edit</button></td>
+                    <td>
+                        <button @click="changeEditPersonId(person.id)" class="btn btn-success">Edit</button>
+                    </td>
+                    <td>
+                        <button @click="deletePerson(person)" :class="editPersonId ? 'd-none' : 'btn btn-danger' ">
+                            Delete
+                        </button>
+                    </td>
                 </tr>
                 <tr :class="isEdit(person.id) ? '' : 'd-none' ">
                     <th scope="row">{{ person.id }}</th>
                     <td><input type="text" class="form-control" v-model="person.name"></td>
                     <td><input type="number" class="form-control" v-model="person.age"></td>
                     <td><input type="text" class="form-control" v-model="person.job"></td>
-                    <td><button @click="updatePerson(person)" class="btn btn-success">Update</button></td>
+                    <td>
+                        <button @click="updatePerson(person)" class="btn btn-success">Update</button>
+                    </td>
                 </tr>
             </template>
             </tbody>

@@ -1,10 +1,15 @@
 <script setup>
 import {ref} from "vue";
+import SomeComponent from "./SomeComponent.vue";
 
-// data
-const name = ref(null)
-const age = ref(null)
-const job = ref(null)
+const name = ref(null);
+const age = ref(null);
+const job = ref(null);
+
+const props = defineProps({
+    refreshPeople: Function,
+    message: String
+})
 
 function addPerson() {
     axios.post('/api/people', {name: name.value, age: age.value, job: job.value})
@@ -13,11 +18,14 @@ function addPerson() {
             age.value = null
             job.value = null
             console.log(resource);
+            props.refreshPeople()
         })
 }
+
 </script>
 
 <template>
+    <some-component :postMessage="props.message"></some-component>
     <div class="w-25">
         <div class="mb-3">
             <input type="text" class="form-control" v-model="name" id="name" placeholder="name">

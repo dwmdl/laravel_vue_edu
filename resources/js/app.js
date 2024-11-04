@@ -18,7 +18,7 @@ const app = createApp({});
 import ExampleComponent from './components/ExampleComponent.vue';
 import PostComponent from "./components/PostComponent.vue";
 app.component('example-component', ExampleComponent);
-app.component('post-component', PostComponent)
+app.component('post-component', PostComponent);
 
 /**
  * The following block of code may be used to automatically register your
@@ -37,5 +37,4 @@ app.component('post-component', PostComponent)
  * an "id" attribute of "app". This element is included with the "auth"
  * scaffolding. Otherwise, you will need to add an element yourself.
  */
-
 app.mount('#app');
