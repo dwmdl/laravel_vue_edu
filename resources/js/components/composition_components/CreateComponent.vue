@@ -11,6 +11,12 @@ const props = defineProps({
     message: String
 })
 
+const obj = {
+    color: "black",
+    number: 12,
+    isPublished: true
+}
+
 function addPerson() {
     axios.post('/api/people', {name: name.value, age: age.value, job: job.value})
         .then(resource => {
@@ -25,7 +31,7 @@ function addPerson() {
 </script>
 
 <template>
-    <some-component :postMessage="props.message"></some-component>
+    <some-component :postMessage="message" :obj="obj"></some-component>
     <div class="w-25">
         <div class="mb-3">
             <input type="text" class="form-control" v-model="name" id="name" placeholder="name">

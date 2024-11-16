@@ -6,11 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Person\PersonResource;
 use App\Models\Person;
 
-class IndexController extends Controller
+class ShowController extends Controller
 {
-    public function __invoke()
+    public function __invoke(Person $personId)
     {
-        $people = Person::all();
-        return PersonResource::collection($people);
+        return PersonResource::make($personId);
     }
 }
